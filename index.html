@@ -1,0 +1,33 @@
+<!doctype html><head>     
+<title>주휴수당 구하기</title>    
+<style>     input{font-size: 1em;}     
+body{font-size: 2em;}     
+button{font-size: 1em;}    </style>
+</head>
+
+<body>    <h1 id=display>당신의 일주일 주휴수당을 알아보세요</h1>    
+<input type="text" id="workingday" placeholder="당신은 주 몇일 근무하나요?">일  
+<input type="text" id="time" placeholder="당신은 하루에 몇시간 근무하나요?">시간  
+<input type="text" id="pay" placeholder="당신의 시급을 알려주세요">원  
+
+<br><button id="action">계산하기</button>  
+<script>
+	action.onclick=function(){
+ var myWorkingday = workingday.value;
+var myTime = time.value;
+var myPay = pay.value;
+rate(myWorkingday, myTime, myPay);
+}
+
+ 
+
+       
+ function rate(myWorkingday,myTime,myPay ){  
+var rate = (myWorkingday*myTime/40) * 8 * myPay;
+
+
+var Text="당신이 받아야하는 주휴수당은"+rate+ "원 입니다";      
+ display.innerHTML=Text;   
+ }       
+</script>
+</body>
