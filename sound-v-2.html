@@ -1,0 +1,51 @@
+
+<!doctype html>
+<head>
+	<title>BH Web Audio 2nd</title>
+	<script src="./soundV.js"></script>
+	<!--이번엔 동그라미를 하나 그려볼께요 -->
+	<style>
+		.circle{ width:200px; height:200px; background:red;
+			border-radius:100px; /*둥글기를 전체 폭의 반을 해주면 동그라미*/
+			position: absolute; left:200px; top:200px;/*좌표 지정*/
+			}
+	</style>
+</head>
+<body>
+	<button id="stopBut">stop</button>
+	<button id="playBut">start</button>
+	<button id="pauseBut">pause</button>
+	<input id="audio_file" type="file" accept="audio/*" />
+
+	<!-- 클래스이름을 스타일과 동일하게 class로 맞췄습니다. 
+		id도 circle로 했어요 id와 class는 이름이 동일해도 됩니다.-->
+	<div class="circle" id="circle"></div>
+
+
+	<script>
+		var newSound = new SoundBH("wwa.mp3",16);
+	
+		var frame = 0; //우선 프레임을 0으로 지정하고요.
+
+		// 자 스크립트에서는 루프를 돌려볼께요. 
+		// 여기 시작줄 끝줄은 프로세싱의 loop와 같습니다.
+		// 함수가 프레임마다 매번 실행이 되지요. 반복이에요.
+		(function loop(){ 
+
+			// 이 안의 내용이 프레임마다 반복되는거에요.
+			frame =  frame + 1; //프레임이 매번 1씩 늘어납니다.
+			var vol = newSound.getGain(); //자 매번 사운드의 볼륨값을 받아옵니다.
+			console.log(frame +"프레임 볼륨"+ vol); //콘솔을 보세요
+
+		window.requestAnimationFrame(loop);})();
+
+
+
+		playBut.onclick = function(){ newSound.play();};	
+		stopBut.onclick = function(){ newSound.stop();};
+		pauseBut.onclick = function(){ newSound.pause();};
+		audio_file.onchange = function(){
+		  	newSound.change(URL.createObjectURL(this.files[0]));
+		};
+	</script>
+</body>

@@ -1,0 +1,46 @@
+
+<!doctype html>
+<head>
+	<title>BH Web Audio 1st</title>
+	<!-- 스크립트를 링크합니다 -->
+	<script src="./soundV.js"></script>
+</head>
+<body>
+	<!-- 사운드를 제어하기 위해 버튼을 4개 넣었습니다 -->
+	<button id="stopBut">stop</button>
+	<button id="playBut">play</button>
+	<button id="pauseBut">pause</button>
+	<input id="audio_file" type="file" accept="audio/*" />
+	<!--파일을 선택할 수 있는 인풋버튼입니다. 이 웹 사운드는 온라인으로만되고 
+		하드디스크에 있는 파일은 파일선택으로만 열어서 재생할 수 있습니다.-->
+	<!--그러니까 자동재생은 github에 올려야 가능하고, 데스크탑으로 작업할때에는
+		그때그때 파일선택을 해서 테스트해야 합니다.-->
+
+
+	<!-- 이제 스크립트를 넣겠습니다. -->
+	<script>
+		
+		//newSound라는 이름으로 새로운 사운드 재생을 시작합니다.
+		//SoundBH를 하나 새로 만드는데 이름을 newSound라고 붙인것이죠.
+		var newSound = new SoundBH("running.mp3",16);
+		//새로 만들 때, 곡이름은 myway.mp3파일을 지정했습니다. 뒤의 숫자는
+		//사운드를 몇단계로 분석할까입니다. 이퀄라이저의 채널 숫자와 같습니다.
+		//16,32,64,128,256과 같이 2의 배수로 지정하면 됩니다(최소 16).
+
+
+		playBut.onclick = function(){ newSound.play();};
+		//newSound는 플레이 기능이 있습니다.
+		
+		stopBut.onclick = function(){ newSound.stop();};
+		//newSound는 정지기능도 있구요.
+		
+		pauseBut.onclick = function(){ newSound.pause();};
+		//일시정지 기능입니다.
+
+		//만약 다른파일이 선택되면,
+		audio_file.onchange = function(){
+			newSound.change(URL.createObjectURL(this.files[0]));
+			//곡바꾸기 기능으로 선택된 파일을 재생합니다. 
+		};
+	</script>
+</body>

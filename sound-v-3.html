@@ -1,0 +1,51 @@
+
+<!doctype html>
+<head>
+	<title>BH Web Audio 3rd</title>
+	<script src="./soundV.js"></script>
+	<style>
+		.circle{ width:200px; height:200px; background:red;
+			border-radius:100px; /*둥글기를 전체 폭의 반을 해주면 동그라미*/
+			position: absolute; left:200px; top:200px;/*좌표 지정*/
+			}
+	</style>
+</head>
+<body>
+	<button id="stopBut">stop</button>
+	<button id="playBut">play</button>
+	<button id="pauseBut">pause</button>
+	<input id="audio_file" type="file" accept="audio/*" />
+
+	<div class="circle" id="circle">
+		<!-- 여기에 사진을 넣으면 사진으로도 되겠죠 -->
+	</div>
+
+
+	<script>
+		var newSound = new SoundBH("wwa.mp3",16);
+	
+		(function loop(){ 
+ 
+			var vol = newSound.getGain() / 10; //볼륨값이 커서 10으로 나눔 
+			
+			//자 드디어 준비가 끝났습니다!! 볼륨을 동그라미의 크기에 대입!!
+			circle.style.width = vol + "px";
+			circle.style.height = vol + "px";
+			circle.style.borderRadius = vol/2 + "px";
+			circle.style.left = 300 - (vol/2) + "px";
+			circle.style.top = 300 - (vol/2) + "px";
+			//동그라미의 절반만큼 왼쪽, 위쪽으로 좌표를 옮겨줘야 동그라미가 제자리에서 사이즈가 바뀝니다.
+
+			window.requestAnimationFrame(loop);	
+		})();
+
+
+
+		playBut.onclick = function(){ newSound.play();};	
+		stopBut.onclick = function(){ newSound.stop();};
+		pauseBut.onclick = function(){ newSound.pause();};
+		audio_file.onchange = function(){
+		  	newSound.change(URL.createObjectURL(this.files[0]));
+		};
+	</script>
+</body>
